@@ -1,0 +1,20 @@
+Source: homeassistant
+Section: python
+Priority: extra
+Maintainer: Vincenzo Mantova <xworld21@users.sf.net>
+Build-Depends: debhelper (>= 9), dh-sysuser
+Standards-Version: 3.9.5
+
+Package: homeassistant-core
+Architecture: any
+Pre-Depends: dpkg (>= 1.16.1), ${misc:Pre-Depends}
+Depends: python3 (>= 3.9), python3-dev, python3-venv, python3-pip, bluez,
+  libffi-dev, libssl-dev, libjpeg-dev, zlib1g-dev, autoconf, build-essential,
+  libopenjp2-7, libtiff5, libturbojpeg0-dev, tzdata, ${misc:Depends}
+Description: Open source home automation that puts local control and privacy first.
+
+Package: homeassistant-fail2ban
+Architecture: any
+Pre-Depends: dpkg (>= 1.16.1), ${misc:Pre-Depends}
+Depends: homeassistant-core, fail2ban
+Description: Fail2ban filters for Home Assistant.

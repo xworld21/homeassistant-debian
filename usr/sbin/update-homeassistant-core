@@ -1,0 +1,29 @@
+#!/bin/sh
+
+set -eu
+
+run() {
+  su --login --shell=/bin/sh --command="$1" homeassistant
+}
+
+if systemctl is-active homeassistant-core.service ; then
+  echo 'Error: homeassistant-core is running. Run systemctl stop homeassistant-core before updating.' >&2
+  exit 1
+fi
+
+echo '+ (Re)creating venv...' >&2
+run 'python3 -m venv "${HOME}/core"'
+
+echo '+ Installing/upgrading wheel...' >&2
+run '. "${HOME}/core/bin/activate" && \
+  python3 -m pip install wheel --upgrade'
+
+echo '+ Installing/upgrading homeassistant...' >&2
+run '. "${HOME}/core/bin/activate" && \
+  pip3 install homeassistant --upgrade'
+
+echo '+ Creating config directory...' >&2
+run 'mkdir --parents "${HOME}"/config'
+
+echo '+ Installation/upgrade successful.' >&2
+echo '+ You may now run systemctl start homeassistant-core.' >&2

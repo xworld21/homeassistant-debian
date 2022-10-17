@@ -1,0 +1,5 @@
+homeassistant (2022.10.4-1) bullseye; urgency=medium
+
+  * Initial release of Debian package.
+
+ -- Vincenzo Mantova <xworld21@users.sf.net>  Mon, 17 Oct 2022 22:06:20 +0100

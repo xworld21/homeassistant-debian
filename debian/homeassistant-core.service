@@ -1,0 +1,55 @@
+[Unit]
+Description=Home Assistant core service
+After=network.target
+
+[Service]
+Type=simple
+User=homeassistant
+Group=homeassistant
+ExecStart=/var/lib/homeassistant/core/bin/hass -c /var/lib/homeassistant/config
+Restart=always
+RestartSec=5s
+
+# Private files
+UMask=0027
+
+# Private namespaces
+PrivateUsers=on
+RestrictNamespaces=on
+
+# Remove capabilities
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+# Prevent escalation
+NoNewPrivileges=true
+RestrictSUIDSGID=on
+
+# Remove file access
+DeviceAllow=
+DevicePolicy=closed
+PrivateTmp=on
+ProtectHome=on
+ProtectProc=invisible
+ProtectSystem=strict
+ReadWritePaths=/var/lib/homeassistant
+
+# Protect system
+LockPersonality=on
+ProtectClock=on
+ProtectControlGroups=on
+ProtectHostname=on
+ProtectKernelLogs=on
+ProtectKernelModules=on
+ProtectKernelTunables=on
+RestrictRealtime=on
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+SystemCallFilter=mbind
+
+# Clean up
+RemoveIPC=on
+
+[Install]
+WantedBy=multi-user.target
