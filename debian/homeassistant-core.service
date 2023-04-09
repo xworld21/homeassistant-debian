@@ -14,12 +14,11 @@ RestartSec=5s
 UMask=0027
 
 # Private namespaces
-PrivateUsers=on
 RestrictNamespaces=on
 
-# Remove capabilities
-CapabilityBoundingSet=
-AmbientCapabilities=
+# Remove capabilities (allow ping)
+CapabilityBoundingSet=cap_net_raw
+AmbientCapabilities=cap_net_raw
 
 # Prevent escalation
 NoNewPrivileges=true
@@ -46,7 +45,8 @@ RestrictRealtime=on
 SystemCallArchitectures=native
 SystemCallFilter=@system-service
 SystemCallFilter=~@privileged @resources
-SystemCallFilter=mbind
+# allow mbind and ping
+SystemCallFilter=mbind capset setuid
 
 # Clean up
 RemoveIPC=on
